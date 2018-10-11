@@ -1,15 +1,10 @@
 function dxdt = HCWode(t,x,Parms)
-persistent n
-
-if isempty(n) == 1
-    n = 1;
-end
 
 omega = Parms.omega;
 
         
-if t < 1;
-    a = [1 1 0];
+if t < 20
+    a = [.1 .1 0];
 else
     a = [0 0 0];
 end
