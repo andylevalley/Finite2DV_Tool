@@ -9,8 +9,8 @@ function [dvar,fval,exitflag,output] = finite2DV(Parameters)
 %%
 
 
-num_dvars = Parameters.Knots*3;
-dvar0 = zeros(1,num_dvars);
+num_dvars = Parameters.Knots + 1;
+dvar0 = zeros(3,num_dvars);
 
 options = optimoptions(@fminunc,'Display','iter','Algorithm','quasi-newton');
 [dvar,fval,exitflag,output] = fminunc(@(dvar)f2DV_objfunc(dvar,Parameters),dvar0,options);
