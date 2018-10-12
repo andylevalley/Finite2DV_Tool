@@ -27,15 +27,9 @@ Parms.FiniteTraj = FiniteTraj;
 
 %% optimization attempt
 
-Knots = 5;
+Knots = 10;
 Parms.Knots = Knots;
 Parms.TimeTotal = t_total;
-
-
-% num_dvars = Knots*3;
-% dvar0 = zeros(1,num_dvars);
-
-% [dvar,fval,exitflag,output] = fminunc(@(dvar)f2DV_objfunc(dvar,Parms),dvar0);
 
 [dvar,fval,exitflag,output] = finite2DV(Parms);
 
@@ -69,38 +63,46 @@ figure(1)
 subplot(2,2,1)
 plot(t,sol(:,1)/1000,'-',t,sol(:,2)/1000,'-',t,sol(:,3)/1000,'-')
 xlabel('time (secs)')
-ylabel('km')
+ylabel('Position (km)')
 xticklabels(labels)
 xticks(ticks)
+legend({'x','y','z'})
+title('Reference Position')
 axis tight
 
 subplot(2,2,2)
 plot(t,sol(:,4),'-',t,sol(:,5),'-',t,sol(:,6),'-')
 xlabel('time (secs)')
-ylabel('m/s')
+ylabel('Velocity (m/s)')
 xticklabels(labels)
 xticks(ticks)
+legend({'$\dot{x}$','$\dot{y}$','$\dot{z}$'})
+title('Reference Velocity')
 axis tight
 
 subplot(2,2,3)
 plot(1:length(DVTraj),DVTraj(1,:)/1000,'-',1:length(DVTraj),DVTraj(2,:)/1000,'-',1:length(DVTraj),DVTraj(3,:)/1000,'-')
 xlabel('time (secs)')
-ylabel('km')
+ylabel('Position (km)')
 xticklabels(labels)
 xticks(ticks)
+legend({'x','y','z'})
+title('$\Delta V$ Fitted Position')
 axis tight
 
 subplot(2,2,4)
 plot(1:length(DVTraj),DVTraj(4,:),'-',1:length(DVTraj),DVTraj(5,:),'-',1:length(DVTraj),DVTraj(6,:),'-')
 xlabel('time (secs)')
-ylabel('m/s')
+ylabel('Velocity (m/s)')
 xticklabels(labels)
 xticks(ticks)
+legend({'$\dot{x}$','$\dot{y}$','$\dot{z}$'})
+title('$\Delta V$ Fitted Velocity')
 axis tight
 
 figure(2)
 timeVec = 0:t_total/Knots:t_total;
-h = plot(timeVec,DV,'o-');
+h = plot(timeVec,DV(1:3,:),'o-');
 
 n = 3;
 colors = hsv(n);
@@ -114,7 +116,9 @@ xticklabels(labels)
 xticks(ticks)
 xlabel('Time (hours)')
 ylabel('km')
-axis([0 t_total -.2 2])
+title('$\Delta V$ Magnitude')
+legend({'$\Delta V_x$','$\Delta V_y$','$\Delta V_z$'})
+axis tight
 
 
 %% Differences

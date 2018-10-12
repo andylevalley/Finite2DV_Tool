@@ -4,7 +4,7 @@ omega = Parms.omega;
 
         
 if t < 20
-    a = [.1 .1 0];
+    a = [.01 .01 .01];
 else
     a = [0 0 0];
 end

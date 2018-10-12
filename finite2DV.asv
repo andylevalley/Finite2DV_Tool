@@ -17,11 +17,8 @@ options = optimoptions(@fminunc,'Display','iter','Algorithm','quasi-newton');
 
 
 TimeTotal = Parameters.TimeTotal;
-Knots = Parameters.Knots;
+Kn
 dt = TimeTotal/Knots;
-TimeVec = 0:dt:TimeTotal;
-
-dvar = [dvar; TimeVec];
 
 % options = optimoptions('simulannealbnd','Display','iter');
 % 
