@@ -30,6 +30,7 @@ Parms.FiniteTraj = FiniteTraj;
 Knots = 10;
 Parms.Knots = Knots;
 Parms.TimeTotal = t_total;
+Parms.SampleTimes = 1:3600:t_total;
 
 [dvar,fval,exitflag,output] = finite2DV(Parms);
 

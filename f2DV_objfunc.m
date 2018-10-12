@@ -1,12 +1,12 @@
-function fval = f2DV_objfunc(dvar,Parms)
+function fval = f2DV_objfunc(dvar,Parameters)
 
-Knots = Parms.Knots;
-TimeTotal = Parms.TimeTotal;
-omega = Parms.omega;
+Knots = Parameters.Knots;
+TimeTotal = Parameters.TimeTotal;
+omega = Parameters.omega;
 
 
 % [x;y;z;xdot;ydot;zdot] (6xN)
-FiniteTraj = Parms.FiniteTraj;
+FiniteTraj = Parameters.FiniteTraj;
 
 rInit = [0 0 0]';
 vInit = [0 0 0]';
@@ -30,12 +30,13 @@ end
 
 DVTraj(4:6,end) = vInit + DV(1:3,Knots+1);
 
-step = 1;
-
-% fval = sum((DVTraj(1,1:step:end)-FiniteTraj(1,1:step:end)).^2 + (DVTraj(2,1:step:end)-FiniteTraj(2,1:step:end)).^2 + (DVTraj(3,1:step:end)-FiniteTraj(3,1:step:end)).^2 +...
-%            (DVTraj(4,1:step:end)-FiniteTraj(4,1:step:end)).^2 + (DVTraj(5,1:step:end)-FiniteTraj(5,1:step:end)).^2 + (DVTraj(6,1:step:end)-FiniteTraj(6,1:step:end)).^2);
+SampleTimes = Parameters.SampleTimes;
 
 
-fval = sum((DVTraj(1,end)/1000-FiniteTraj(1,end)/1000)^2 + (DVTraj(2,end)/1000-FiniteTraj(2,end)/1000)^2 + (DVTraj(3,end)/1000-FiniteTraj(3,end)/1000)^2 +...
-           (DVTraj(4,end)-FiniteTraj(4,end))^2 + (DVTraj(5,end)-FiniteTraj(5,end))^2 + (DVTraj(6,end)-FiniteTraj(6,end))^2);
+fval = sum((DVTraj(1,SampleTimes(:))-FiniteTraj(1,SampleTimes(:))).^2 +...
+           (DVTraj(2,SampleTimes(:))-FiniteTraj(2,SampleTimes(:))).^2 +...
+           (DVTraj(3,SampleTimes(:))-FiniteTraj(3,SampleTimes(:))).^2 +...
+           (DVTraj(4,SampleTimes(:))-FiniteTraj(4,SampleTimes(:))).^2 +...
+           (DVTraj(5,SampleTimes(:))-FiniteTraj(5,SampleTimes(:))).^2 +...
+           (DVTraj(6,SampleTimes(:))-FiniteTraj(6,SampleTimes(:))).^2);
 end
